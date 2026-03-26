@@ -2,10 +2,6 @@
 
 A comprehensive data engineering solution for SaaS businesses, featuring real-time event streaming, batch processing, and automated data transformation pipelines.
 
-[![CI - Airflow](https://github.com/alfianhid/de_project_id/actions/workflows/ci_airflow.yml/badge.svg)](https://github.com/alfianhid/de_project_id/actions/workflows/ci_airflow.yml)
-[![CI - dbt](https://github.com/alfianhid/de_project_id/actions/workflows/ci_dbt.yml/badge.svg)](https://github.com/alfianhid/de_project_id/actions/workflows/ci_dbt.yml)
-[![CD - Deploy](https://github.com/alfianhid/de_project_id/actions/workflows/cd_deploy.yml/badge.svg)](https://github.com/alfianhid/de_project_id/actions/workflows/cd_deploy.yml)
-
 ## Architecture Overview
 
 ```
