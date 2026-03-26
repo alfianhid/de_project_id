@@ -1,0 +1,20 @@
+[sqlfluff]
+templater    = dbt
+dialect      = bigquery
+sql_file_exts = .sql
+
+[sqlfluff:templater:dbt]
+project_dir  = .
+profiles_dir = .
+profile      = de_project_id
+target       = dev
+
+[sqlfluff:rules:layout.indent]
+indent_unit    = space
+tab_space_size = 4
+
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.functions]
+capitalisation_policy = lower

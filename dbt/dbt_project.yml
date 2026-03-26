@@ -1,0 +1,46 @@
+name: de_project_id
+version: "1.0.0"
+config-version: 2
+profile: de_project_id
+
+model-paths:    ["models"]
+seed-paths:     ["seeds"]
+test-paths:     ["tests"]
+analysis-paths: ["analysis"]
+macro-paths:    ["macros"]
+snapshot-paths: ["snapshots"]
+target-path:    "target"
+clean-targets:  ["target", "dbt_packages"]
+
+models:
+  de_project_id:
+    staging:
+      +materialized: view
+      +schema: staging
+      +tags: ["staging"]
+
+    intermediate:
+      +materialized: ephemeral
+      +tags: ["intermediate"]
+
+    transform:
+      +materialized: incremental
+      +schema: transform
+      +tags: ["transform"]
+      +on_schema_change: append_new_columns
+
+    reporting:
+      +materialized: table
+      +schema: reporting
+      +tags: ["reporting"]
+
+snapshots:
+  de_project_id:
+    +target_schema: transform
+    +strategy: timestamp
+    +updated_at: updated_at
+
+seeds:
+  de_project_id:
+    +schema: raw
+    +tags: ["seed"]

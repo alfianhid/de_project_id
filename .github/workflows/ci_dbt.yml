@@ -1,0 +1,79 @@
+name: CI — dbt Lint & Test
+
+on:
+  pull_request:
+    branches: [main, develop]
+    paths: ["dbt/**", ".github/workflows/ci_dbt.yml"]
+
+jobs:
+  dbt-ci:
+    runs-on: ubuntu-22.04
+    env:
+      DBT_TARGET: dev
+      # TODO: Update this secret in GitHub Settings > Secrets and Variables > Actions
+      # Name: GCP_PROJECT_ID
+      # Value: your-actual-gcp-project-id (e.g., "my-project-123456")
+      GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID || 'test-project-123456' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dbt + sqlfluff
+        run: pip install dbt-core==1.8.7 dbt-bigquery==1.8.2 sqlfluff sqlfluff-templater-dbt
+
+      - name: Authenticate GCP
+        # TODO: Update this secret in GitHub Settings > Secrets and Variables > Actions
+        # Name: GCP_SA_KEY_JSON
+        # Value: Contents of your GCP service account JSON key file
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY_JSON || '{"type": "service_account", "project_id": "test-project"}' }}
+
+      - name: Write profiles.yml
+        # TODO: Ensure GCP_SA_KEY_JSON secret is set as described above
+        run: |
+          echo '${{ secrets.GCP_SA_KEY_JSON || '{"type": "service_account"}' }}' > /tmp/gcp-sa-key.json
+          cat > dbt/profiles.yml << EOF
+          saas_dwh:
+            target: dev
+            outputs:
+              dev:
+                type: bigquery
+                method: service-account
+                project: ${{ secrets.GCP_PROJECT_ID || 'test-project-123456' }}
+                dataset: transform_ci_${{ github.run_id }}
+                keyfile: /tmp/gcp-sa-key.json
+                location: asia-southeast2
+                threads: 4
+                timeout_seconds: 300
+          EOF
+
+      - name: dbt deps
+        run: dbt deps --project-dir dbt --profiles-dir dbt
+
+      - name: SQLFluff lint
+        run: |
+          sqlfluff lint dbt/models \
+            --dialect bigquery \
+            --templater dbt \
+            --config dbt/.sqlfluff
+
+      - name: dbt compile
+        run: dbt compile --project-dir dbt --profiles-dir dbt --target dev
+
+      - name: dbt run staging (CI)
+        run: dbt run --project-dir dbt --profiles-dir dbt --target dev --select staging --fail-fast
+
+      - name: dbt test staging (CI)
+        run: dbt test --project-dir dbt --profiles-dir dbt --target dev --select staging
+
+      - name: Cleanup CI dataset
+        if: always()
+        run: |
+          bq rm -r -f --dataset \
+            "${{ secrets.GCP_PROJECT_ID || 'test-project-123456' }}:transform_ci_${{ github.run_id }}" || true

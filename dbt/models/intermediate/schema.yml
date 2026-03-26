@@ -1,0 +1,84 @@
+version: 2
+
+models:
+  - name: int_account_metrics
+    description: |
+      Intermediate model that aggregates subscription metrics at the account level.
+      This model calculates key subscription KPIs per account for use in reporting.
+    meta:
+      owner: data-engineering
+      layer: intermediate
+      upstream_models:
+        - fct_subscriptions
+    columns:
+      - name: account_id
+        description: Foreign key to the account dimension
+        tests:
+          - not_null
+          - unique
+      - name: account_sk
+        description: Surrogate key linking to the account snapshot
+        tests:
+          - not_null
+      - name: total_subscriptions
+        description: Total count of all subscriptions for this account
+        tests:
+          - not_null
+      - name: active_subscriptions
+        description: Count of currently active subscriptions
+      - name: cancelled_subscriptions
+        description: Count of cancelled subscriptions
+      - name: trialing_subscriptions
+        description: Count of subscriptions currently in trial
+      - name: total_active_mrr
+        description: Sum of MRR from active subscriptions
+      - name: total_active_arr
+        description: Sum of ARR from active subscriptions
+      - name: first_subscription_at
+        description: Timestamp of the first subscription for this account
+      - name: latest_subscription_at
+        description: Timestamp of the most recent subscription
+      - name: unique_plans
+        description: Count of distinct plan types subscribed
+      - name: unique_currencies
+        description: Count of distinct currencies used
+
+  - name: int_plan_metrics
+    description: |
+      Intermediate model that aggregates subscription metrics at the plan level.
+      This model calculates key performance indicators per subscription plan.
+    meta:
+      owner: data-engineering
+      layer: intermediate
+      upstream_models:
+        - fct_subscriptions
+    columns:
+      - name: plan_id
+        description: Subscription plan identifier
+        tests:
+          - not_null
+          - unique
+      - name: total_subscriptions
+        description: Total count of all subscriptions for this plan
+        tests:
+          - not_null
+      - name: active_subscriptions
+        description: Count of currently active subscriptions
+      - name: cancelled_subscriptions
+        description: Count of cancelled subscriptions
+      - name: trialing_subscriptions
+        description: Count of subscriptions currently in trial
+      - name: at_risk_subscriptions
+        description: Count of subscriptions in at-risk status (past_due, incomplete, unpaid)
+      - name: plan_active_mrr
+        description: Sum of MRR from active subscriptions for this plan
+      - name: plan_active_arr
+        description: Sum of ARR from active subscriptions for this plan
+      - name: avg_active_mrr
+        description: Average MRR per active subscription
+      - name: unique_accounts
+        description: Count of distinct accounts using this plan
+      - name: first_subscription_at
+        description: Timestamp of the first subscription for this plan
+      - name: latest_subscription_at
+        description: Timestamp of the most recent subscription

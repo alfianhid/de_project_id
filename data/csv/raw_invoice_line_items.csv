@@ -1,0 +1,39 @@
+line_item_id,invoice_id,description,quantity,unit_price_cents,total_cents,period_start,period_end,_source_system,_loaded_at
+li_0001,inv_0001,Growth Plan - Monthly,1,14900,14900,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0002,inv_0002,Enterprise Plan - Monthly,1,49900,49900,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0003,inv_0003,Enterprise Plan - Monthly,1,49900,49900,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0004,inv_0004,Starter Plan - Monthly,1,4900,4900,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0005,inv_0005,Enterprise Annual Plan,1,598800,598800,2024-01-01,2024-12-31,stripe,2024-11-01 02:15:00
+li_0006,inv_0006,Growth Plan - Monthly,1,14900,14900,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0007,inv_0007,Starter Plan - Monthly,1,4900,4900,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0008,inv_0008,Starter Plan - Monthly (voided),1,4900,4900,2024-05-01,2024-05-31,stripe,2024-11-01 02:15:00
+li_0009,inv_0009,Growth Plan - Monthly,1,14900,14900,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0010,inv_0010,Enterprise Annual Plan,1,598800,598800,2024-04-01,2025-03-31,stripe,2024-11-01 02:15:00
+li_0011,inv_0011,Starter Plan - Monthly (unpaid),1,4900,4900,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0012,inv_0012,Enterprise Plan - Monthly,1,49900,49900,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0013,inv_0013,Starter Plan - Monthly,1,4900,4900,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0014,inv_0014,Enterprise Annual Plan,1,598800,598800,2024-01-15,2025-01-14,stripe,2024-11-01 02:15:00
+li_0015,inv_0015,Growth Plan - Monthly,1,14900,14900,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0016,inv_0016,Enterprise Plan - Monthly,1,49900,49900,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0017,inv_0017,Growth Plan - Monthly (voided),1,14900,14900,2024-08-01,2024-08-31,stripe,2024-11-01 02:15:00
+li_0018,inv_0018,Growth Plan - Monthly,1,14900,14900,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0019,inv_0019,Growth Plan - Monthly,1,14900,14900,2024-09-01,2024-09-30,stripe,2024-11-01 02:15:00
+li_0020,inv_0020,Enterprise Plan - Monthly,1,49900,49900,2024-09-01,2024-09-30,stripe,2024-11-01 02:15:00
+li_0021,inv_0021,Enterprise Plan - Monthly,1,49900,49900,2024-09-01,2024-09-30,stripe,2024-11-01 02:15:00
+li_0022,inv_0022,Enterprise Plan - Monthly,1,49900,49900,2024-09-01,2024-09-30,stripe,2024-11-01 02:15:00
+li_0023,inv_0023,Growth Plan - Monthly,1,14900,14900,2024-09-01,2024-09-30,stripe,2024-11-01 02:15:00
+li_0024,inv_0001,Prorated Discount - October,-1,1490,-1490,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0025,inv_0016,Prorated Discount - October,-1,4990,-4990,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0026,inv_0003,Support Add-on,1,5000,5000,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0027,inv_0012,Priority Support Add-on,1,9900,9900,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0028,inv_0021,Support Add-on,1,5000,5000,2024-09-01,2024-09-30,stripe,2024-11-01 02:15:00
+li_0029,inv_0022,Priority Support Add-on,1,9900,9900,2024-09-01,2024-09-30,stripe,2024-11-01 02:15:00
+li_0030,inv_0009,Growth Plan - Monthly,1,14900,14900,2024-09-01,2024-09-30,stripe,2024-11-01 02:15:00
+li_0031,inv_0015,Growth Plan - Monthly,1,14900,14900,2024-09-01,2024-09-30,stripe,2024-11-01 02:15:00
+li_0032,inv_0018,Growth Plan - Monthly,1,14900,14900,2024-09-01,2024-09-30,stripe,2024-11-01 02:15:00
+li_0033,inv_0006,Growth Plan - Monthly,1,14900,14900,2024-09-01,2024-09-30,stripe,2024-11-01 02:15:00
+li_0034,inv_0007,Starter Plan - Monthly,1,4900,4900,2024-09-01,2024-09-30,stripe,2024-11-01 02:15:00
+li_0035,inv_0004,Starter Plan - Monthly,1,4900,4900,2024-09-01,2024-09-30,stripe,2024-11-01 02:15:00
+li_0036,inv_0013,Starter Plan - Monthly,1,4900,4900,2024-09-01,2024-09-30,stripe,2024-11-01 02:15:00
+li_0037,inv_9999,Ghost Line Item,1,4900,4900,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00
+li_0038,inv_0002,Implementation Fee - One-time,1,50000,50000,2024-10-01,2024-10-31,stripe,2024-11-01 02:15:00

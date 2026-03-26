@@ -1,0 +1,48 @@
+version: 2
+
+snapshots:
+  - name: snap_accounts
+    description: |
+      Type 2 Slowly Changing Dimension (SCD) snapshot of account data.
+      Tracks historical changes to account records over time.
+    meta:
+      owner: data-engineering
+      upstream_source: raw_accounts
+    columns:
+      - name: account_id
+        description: Natural/business key for the account
+        tests:
+          - not_null
+      - name: account_name
+        description: Account/company name
+      - name: industry
+        description: Industry classification
+      - name: company_size_band
+        description: Company size category (SMB, Mid-Market, Enterprise)
+      - name: region
+        description: Geographic region
+      - name: account_tier
+        description: Account tier/level (Free, Growth, Enterprise)
+      - name: csm_user_id
+        description: Customer Success Manager assigned to the account
+      - name: is_active
+        description: Boolean flag indicating if the account is active
+      - name: created_at
+        description: Account creation timestamp
+      - name: updated_at
+        description: Last update timestamp (used for SCD tracking)
+      - name: _source_system
+        description: Source system identifier
+      - name: _loaded_at
+        description: Timestamp when the record was loaded
+      - name: dbt_scd_id
+        description: Surrogate key for the snapshot record
+        tests:
+          - unique
+          - not_null
+      - name: dbt_updated_at
+        description: Timestamp when dbt processed this record
+      - name: dbt_valid_from
+        description: Start of validity period for this record version
+      - name: dbt_valid_to
+        description: End of validity period (null for current version)

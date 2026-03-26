@@ -1,0 +1,15 @@
+target/
+dbt_packages/
+logs/
+.user.yml
+.env
+*.pyc
+__pycache__/
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Package lock
+package-lock.yml

@@ -1,0 +1,84 @@
+name: CD — Deploy to Production
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate GCP
+        # TODO: Update this secret in GitHub Settings > Secrets and Variables > Actions
+        # Name: GCP_SA_KEY_JSON
+        # Value: Contents of your GCP service account JSON key file
+        # The service account needs BigQuery Data Editor and Job User permissions
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY_JSON || '{"type": "service_account"}' }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dbt
+        run: pip install dbt-core==1.8.7 dbt-bigquery==1.8.2
+
+      - name: SSH deploy to production host
+        # TODO: Update these secrets in GitHub Settings > Secrets and Variables > Actions
+        # Name: PROD_HOST
+        # Value: IP address or hostname of your production server (e.g., "203.0.113.10" or "prod.example.com")
+        #
+        # Name: PROD_SSH_USER
+        # Value: SSH username for the production server (e.g., "ubuntu" or "deploy")
+        #
+        # Name: PROD_SSH_KEY
+        # Value: Private SSH key for authentication (the corresponding public key must be in ~/.ssh/authorized_keys on the server)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host:     ${{ secrets.PROD_HOST || '203.0.113.10' }}
+          username: ${{ secrets.PROD_SSH_USER || 'ubuntu' }}
+          key:      ${{ secrets.PROD_SSH_KEY || '-----BEGIN OPENSSH PRIVATE KEY-----\ntest-key-placeholder\n-----END OPENSSH PRIVATE KEY-----' }}
+          script: |
+            set -euo pipefail
+            cd /opt/saas-data-platform
+            git pull origin main
+
+            # Rebuild changed Airflow image
+            docker compose build airflow-webserver airflow-scheduler airflow-worker
+
+            # Rolling restart of Airflow services (no downtime on scheduler/triggerer)
+            docker compose up -d --no-deps \
+                airflow-webserver airflow-scheduler \
+                airflow-worker airflow-triggerer
+
+            # Refresh dbt packages
+            docker compose exec -T airflow-worker \
+                dbt deps --project-dir /opt/dbt --profiles-dir /opt/dbt
+
+            echo "Deployment complete: $(date)"
+
+      - name: Notify Slack — success
+        # TODO: (OPTIONAL) Update this secret in GitHub Settings > Secrets and Variables > Actions
+        # Name: SLACK_WEBHOOK_URL
+        # Value: Your Slack incoming webhook URL (create at slack api docs)
+        if: success() && env.SLACK_WEBHOOK_URL != ''
+        uses: slackapi/slack-github-action@v1.27.0
+        with:
+          payload: |
+            {"text": "✅ Prod deploy OK — *saas-data-platform* @ `${{ github.sha }}`"}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify Slack — failure
+        if: failure() && env.SLACK_WEBHOOK_URL != ''
+        uses: slackapi/slack-github-action@v1.27.0
+        with:
+          payload: |
+            {"text": "🚨 Prod deploy FAILED — `${{ github.sha }}` — <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>"}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

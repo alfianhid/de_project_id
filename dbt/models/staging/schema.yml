@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: stg_subscriptions
+    description: Cleaned and deduplicated subscription data from raw source
+    columns:
+      - name: subscription_id
+        description: Unique subscription identifier
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        description: Customer/account ID
+        tests:
+          - not_null
+      - name: plan_id
+        description: Subscription plan ID
+        tests:
+          - not_null
+      - name: subscription_status
+        description: Subscription status (active, canceled, etc.)
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['active', 'cancelled', 'trialing', 'past_due', 'incomplete', 'unpaid', 'incomplete_expired']
+      - name: billing_interval
+        description: Billing frequency (monthly, yearly)
+        tests:
+          - accepted_values:
+              values: ['month', 'year', 'week', 'day', null]
+      - name: currency
+        description: Currency code (USD, EUR, etc.)
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_value_lengths_to_equal:
+              value: 3
+      - name: mrr_amount
+        description: Monthly recurring revenue amount
+        tests:
+          - not_null
+      - name: started_at
+        description: Subscription start timestamp
+        tests:
+          - not_null
+      - name: _source_system
+        description: Source system identifier
+        tests:
+          - not_null
+      - name: _loaded_at
+        description: Data loading timestamp
+        tests:
+          - not_null

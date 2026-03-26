@@ -1,0 +1,155 @@
+version: 2
+
+seeds:
+  - name: raw_accounts
+    description: |
+      Seed data for account/customer records loaded from the CRM system.
+      This represents the raw source data before transformation.
+    meta:
+      upstream_source: CRM
+      load_frequency: daily
+    columns:
+      - name: account_id
+        description: Unique account identifier
+        tests:
+          - unique
+          - not_null
+      - name: account_name
+        description: Account/company name
+      - name: industry
+        description: Industry classification
+      - name: company_size_band
+        description: Company size category
+      - name: region
+        description: Geographic region
+      - name: account_tier
+        description: Account tier/level
+      - name: csm_user_id
+        description: Customer Success Manager user ID
+      - name: is_active
+        description: Active status flag
+      - name: created_at
+        description: Record creation timestamp
+      - name: updated_at
+        description: Record update timestamp
+      - name: _source_system
+        description: Source system identifier
+      - name: _loaded_at
+        description: Loading timestamp
+
+  - name: raw_subscriptions
+    description: |
+      Seed data for subscription records loaded from the billing system (Stripe).
+      This represents the raw source data before transformation.
+    meta:
+      upstream_source: Stripe
+      load_frequency: daily
+    columns:
+      - name: id
+        description: Unique subscription identifier
+        tests:
+          - not_null
+      - name: customer
+        description: Customer/account ID
+      - name: plan_id
+        description: Subscription plan ID
+      - name: status
+        description: Subscription status (active, cancelled, etc.)
+      - name: billing_interval
+        description: Billing frequency (monthly, yearly)
+      - name: currency
+        description: Currency code (USD, EUR, etc.)
+      - name: amount
+        description: Amount in cents
+      - name: created
+        description: Creation timestamp (Unix epoch)
+      - name: canceled_at
+        description: Cancellation timestamp (Unix epoch)
+      - name: ended_at
+        description: End timestamp (Unix epoch)
+      - name: trial_start
+        description: Trial start timestamp (Unix epoch)
+      - name: trial_end
+        description: Trial end timestamp (Unix epoch)
+      - name: _source_system
+        description: Source system identifier
+      - name: _loaded_at
+        description: Loading timestamp
+      - name: _pipeline_run_date
+        description: Pipeline execution date
+
+sources:
+  - name: raw
+    description: |
+      Raw data layer containing seed data and externally ingested data.
+      Data in this schema is loaded from multiple sources including:
+      - CRM system (accounts)
+      - Stripe billing system (subscriptions)
+      - Application database (usage events)
+    database: "{{ env_var('GCP_PROJECT_ID') }}"
+    schema: "{{ 'transform_raw' if target.name == 'prod' else 'transform_dev_raw' }}"
+    tables:
+      - name: raw_accounts
+        description: Raw account data from CRM/application database
+        columns:
+          - name: account_id
+            description: Unique account identifier
+            tests:
+              - unique
+              - not_null
+          - name: account_name
+            description: Account/company name
+          - name: industry
+            description: Industry classification
+          - name: company_size_band
+            description: Company size category
+          - name: region
+            description: Geographic region
+          - name: account_tier
+            description: Account tier/level
+          - name: csm_user_id
+            description: Customer Success Manager user ID
+          - name: is_active
+            description: Active status flag
+          - name: created_at
+            description: Record creation timestamp
+          - name: updated_at
+            description: Record update timestamp
+          - name: _source_system
+            description: Source system identifier
+          - name: _loaded_at
+            description: Loading timestamp
+
+      - name: raw_subscriptions
+        description: Raw subscription data from billing system (Stripe format)
+        columns:
+          - name: id
+            description: Unique subscription identifier
+          - name: customer
+            description: Customer/account ID
+          - name: plan_id
+            description: Subscription plan ID
+          - name: status
+            description: Subscription status (active, cancelled, etc.)
+          - name: billing_interval
+            description: Billing frequency (monthly, yearly)
+          - name: currency
+            description: Currency code (USD, EUR, etc.)
+          - name: amount
+            description: Amount in cents
+          - name: created
+            description: Creation timestamp (Unix epoch)
+          - name: canceled_at
+            description: Cancellation timestamp (Unix epoch)
+          - name: ended_at
+            description: End timestamp (Unix epoch)
+          - name: trial_start
+            description: Trial start timestamp (Unix epoch)
+          - name: trial_end
+            description: Trial end timestamp (Unix epoch)
+          - name: _source_system
+            description: Source system identifier
+          - name: _loaded_at
+            description: Loading timestamp
+          - name: _pipeline_run_date
+            description: Pipeline execution date

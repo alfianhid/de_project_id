@@ -1,0 +1,27 @@
+# Airflow providers (compatible with Airflow 3.1.8)
+apache-airflow-providers-google
+apache-airflow-providers-apache-spark
+apache-airflow-providers-apache-kafka
+apache-airflow-providers-celery
+apache-airflow-providers-common-messaging
+
+# dbt
+dbt-core
+dbt-bigquery
+
+# GCP (versions resolved by providers)
+google-cloud-bigquery
+google-cloud-storage
+google-auth
+
+# Kafka
+kafka-python
+confluent-kafka
+fastavro
+
+# Utilities
+pandas
+pyarrow
+tenacity
+pydantic
+python-dotenv

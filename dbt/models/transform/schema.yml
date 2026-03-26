@@ -1,0 +1,83 @@
+version: 2
+
+models:
+  - name: fct_subscriptions
+    description: |
+      Fact table for subscription data, enriched with account dimension keys.
+      This is the core subscription model that combines cleaned subscription data
+      with account snapshot information for analytics.
+    meta:
+      owner: data-engineering
+      layer: transform
+      upstream_models:
+        - stg_subscriptions
+        - snap_accounts
+    columns:
+      - name: subscription_sk
+        description: Surrogate key for the subscription record
+        tests:
+          - unique
+          - not_null
+      - name: subscription_id
+        description: Natural/business key for the subscription
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        description: Foreign key to the account dimension
+        tests:
+          - not_null
+      - name: account_sk
+        description: Surrogate key linking to the account snapshot (Type 2 SCD)
+        tests:
+          - not_null
+      - name: plan_id
+        description: Subscription plan identifier
+        tests:
+          - not_null
+      - name: subscription_status
+        description: Current status of the subscription
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['active', 'cancelled', 'trialing', 'past_due', 'incomplete', 'unpaid', 'incomplete_expired']
+      - name: billing_interval
+        description: Billing frequency (month, year, etc.)
+        tests:
+          - accepted_values:
+              values: ['month', 'year', 'week', 'day', null]
+      - name: currency
+        description: Three-letter currency code (USD, EUR, etc.)
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_value_lengths_to_equal:
+              value: 3
+      - name: mrr_amount
+        description: Monthly recurring revenue in currency units
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 999999
+      - name: arr_amount
+        description: Annual recurring revenue (MRR * 12 for annualized view)
+      - name: started_at
+        description: Timestamp when the subscription started
+        tests:
+          - not_null
+      - name: cancelled_at
+        description: Timestamp when the subscription was cancelled (null if active)
+      - name: ended_at
+        description: Timestamp when the subscription ended (null if active)
+      - name: trial_start_at
+        description: Timestamp when the trial period started (null if no trial)
+      - name: trial_end_at
+        description: Timestamp when the trial period ends/ended (null if no trial)
+      - name: _source_system
+        description: Source system identifier (stripe, app, etc.)
+        tests:
+          - not_null
+      - name: _loaded_at
+        description: Timestamp when the record was loaded into BigQuery
+        tests:
+          - not_null

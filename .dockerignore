@@ -1,0 +1,103 @@
+# ==================== Documentation ====================
+*.md
+README.md
+project-structure.md
+source_database_setup.md
+production_ops_and_handover_guide.md
+technical_implementation_guide.md
+submission_data_engineer.md
+executive_summary.md
+dummy_data_guide.md
+
+# ==================== Secrets and environment ====================
+secrets/
+.env
+.env.*
+*.pem
+*.key
+
+# ==================== Git ====================
+.git/
+.gitignore
+.github/
+
+# ==================== Python artifacts ====================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.mypy_cache/
+.ruff_cache/
+
+# ==================== Virtual environments ====================
+.venv/
+venv/
+ENV/
+env/
+
+# ==================== IDE ====================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ==================== dbt artifacts ====================
+dbt/target/
+dbt/dbt_packages/
+dbt/.user.yml
+dbt/logs/
+
+# ==================== Airflow artifacts ====================
+airflow/logs/
+airflow/__pycache__/
+
+# ==================== Spark artifacts ====================
+spark/__pycache__/
+
+# ==================== Data files ====================
+data/
+*.csv
+*.parquet
+*.json
+!dbt/models/**/*.json
+*.avro
+*.avsc
+
+# ==================== Lock files (keep requirements lock files) ====================
+**/requirements*.txt
+!requirements-airflow.txt
+!requirements-airflow.lock
+!requirements-spark.txt
+!requirements-spark.lock
+
+# ==================== Tests ====================
+tests/
+test/
+*_test.py
+test_*.py
+
+# ==================== Docker (exclude from build context) ====================
+# Note: Dockerfiles are referenced outside context via dockerfile: path
+
+# ==================== Kafka ====================
+kafka/
+
+# ==================== Misc ====================
+.DS_Store
+*.log
+*.tmp
+*.bak
+*.swp
+Makefile
+scripts/

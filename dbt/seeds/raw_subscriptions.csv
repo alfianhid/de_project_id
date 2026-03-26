@@ -1,0 +1,26 @@
+id,customer,plan_id,status,billing_interval,currency,amount,created,canceled_at,ended_at,trial_start,trial_end,_source_system,_loaded_at,_pipeline_run_date
+sub_0001,acc_0001,plan_growth,active,month,USD,14900,1673740800,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0002,acc_0002,plan_enterprise,active,month,USD,49900,1647302400,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0003,acc_0003,plan_starter,active,month,EUR,4900,1677628800,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0004,acc_0004,plan_enterprise_annual,active,year,USD,598800,1640995200,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0005,acc_0005,plan_starter,trialing,month,USD,4900,1722470400,0,0,1722470400,1724889600,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0006,acc_0006,plan_growth,active,month,EUR,14900,1682899200,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0007,acc_0007,plan_starter,active,month,USD,4900,1689379200,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0008,acc_0008,plan_starter,cancelled,month,USD,4900,1693526400,1714521600,1714521600,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0009,acc_0009,plan_growth,active,month,USD,14900,1676419200,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0010,acc_0010,plan_enterprise_annual,active,year,EUR,598800,1648771200,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0011,acc_0011,plan_starter,past_due,month,USD,4900,1704067200,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0012,acc_0012,plan_enterprise,active,month,USD,49900,1630454400,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0013,acc_0013,plan_starter,active,month,EUR,4900,1698796800,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0014,acc_0014,plan_enterprise_annual,active,year,USD,598800,1642204800,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0015,acc_0015,plan_starter,trialing,month,USD,4900,1716163200,0,0,1716163200,1718841600,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0016,acc_0016,plan_growth,active,month,USD,14900,1680307200,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0017,acc_0017,plan_enterprise,active,month,USD,49900,1659312000,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0018,acc_0018,plan_growth,cancelled,month,EUR,14900,1696118400,1722470400,1722470400,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0019,acc_0019,plan_growth,active,month,USD,14900,1686787200,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0020,acc_0020,plan_starter,incomplete,month,USD,4900,1709251200,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0021,acc_0001,plan_enterprise,active,month,USD,49900,1719792000,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0022,acc_0004,plan_growth,cancelled,month,USD,14900,1672531200,1704067200,1704067200,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0023,acc_0019,plan_starter,active,month,USD,4900,1709251200,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0024,acc_0013,plan_starter,active,month,USD,4900,1709251200,0,0,0,0,stripe,2024-11-01 02:15:00,2024-11-01
+sub_0001,acc_0001,plan_growth,active,month,USD,14900,1673740800,0,0,0,0,stripe,2024-10-31 02:15:00,2024-11-01

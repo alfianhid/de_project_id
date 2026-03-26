@@ -1,0 +1,15 @@
+{
+  "type": "record",
+  "name": "UsageEvent",
+  "namespace": "com.saasplatform.events",
+  "fields": [
+    {"name": "event_id",        "type": "string"},
+    {"name": "account_id",      "type": "string"},
+    {"name": "user_id",         "type": "string"},
+    {"name": "event_type",      "type": "string"},
+    {"name": "feature_name",    "type": ["null", "string"], "default": null},
+    {"name": "session_id",      "type": ["null", "string"], "default": null},
+    {"name": "event_timestamp", "type": "long", "logicalType": "timestamp-millis"},
+    {"name": "metadata",        "type": ["null", "string"], "default": null}
+  ]
+}

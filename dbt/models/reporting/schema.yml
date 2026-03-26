@@ -1,0 +1,186 @@
+version: 2
+
+models:
+  - name: rpt_subscription_monthly
+    description: |
+      Monthly subscription snapshot for business reporting.
+      This table provides a denormalized view of subscriptions with account dimensions
+      for easy consumption by BI tools and analysts.
+    meta:
+      owner: data-engineering
+      layer: reporting
+      downstream_consumers:
+        - BI Dashboards
+        - Revenue Analytics
+        - Executive Reporting
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - snapshot_month
+            - subscription_id
+    columns:
+      - name: snapshot_month
+        description: Month of the snapshot (partition column)
+        tests:
+          - not_null
+      - name: subscription_id
+        description: Unique subscription identifier
+        tests:
+          - not_null
+      - name: account_id
+        description: Foreign key to account
+        tests:
+          - not_null
+      - name: account_name
+        description: Account/company name
+      - name: industry
+        description: Industry classification
+      - name: company_size_band
+        description: Company size category (SMB, Mid-Market, Enterprise)
+      - name: region
+        description: Geographic region
+      - name: account_tier
+        description: Account tier/level (Free, Growth, Enterprise)
+      - name: plan_id
+        description: Subscription plan identifier
+        tests:
+          - not_null
+      - name: subscription_status
+        description: Current status of the subscription
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['active', 'cancelled', 'trialing', 'past_due', 'incomplete', 'unpaid', 'incomplete_expired']
+      - name: billing_interval
+        description: Billing frequency
+      - name: currency
+        description: Three-letter currency code
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_value_lengths_to_equal:
+              value: 3
+      - name: mrr_amount
+        description: Monthly recurring revenue
+        tests:
+          - not_null
+      - name: arr_amount
+        description: Annual recurring revenue
+      - name: started_at
+        description: Subscription start timestamp
+        tests:
+          - not_null
+      - name: cancelled_at
+        description: Cancellation timestamp (null if active)
+      - name: ended_at
+        description: End timestamp (null if active)
+      - name: health_status
+        description: Categorized subscription health status
+        tests:
+          - accepted_values:
+              values: ['Active', 'Cancelled', 'Trialing', 'At Risk', 'Other']
+      - name: value_tier
+        description: Revenue value classification
+        tests:
+          - accepted_values:
+              values: ['High Value', 'Medium Value', 'Low Value', 'Non-Revenue']
+      - name: billing_type
+        description: Billing type classification
+        tests:
+          - accepted_values:
+              values: ['Annual', 'Monthly', 'Other']
+      - name: _loaded_at
+        description: Record load timestamp
+
+  - name: rpt_account_overview
+    description: |
+      Account-level summary with subscription metrics for account health analysis.
+      This table provides a 360-degree view of account health, product adoption,
+      and engagement for customer success and sales teams.
+    meta:
+      owner: data-engineering
+      layer: reporting
+      downstream_consumers:
+        - Customer Success Dashboard
+        - Sales Analytics
+        - Churn Prediction Models
+    columns:
+      - name: account_id
+        description: Unique account identifier (primary key)
+        tests:
+          - unique
+          - not_null
+      - name: account_name
+        description: Account/company name
+      - name: industry
+        description: Industry classification
+      - name: company_size_band
+        description: Company size category
+      - name: region
+        description: Geographic region
+      - name: account_tier
+        description: Account tier/level
+      - name: csm_user_id
+        description: Customer Success Manager assigned
+      - name: account_active
+        description: Boolean flag for account active status
+      - name: account_created_at
+        description: Account creation timestamp
+      - name: account_updated_at
+        description: Account last update timestamp
+      - name: total_subscriptions
+        description: Total count of all subscriptions
+        tests:
+          - not_null
+      - name: active_subscriptions
+        description: Count of active subscriptions
+        tests:
+          - not_null
+      - name: cancelled_subscriptions
+        description: Count of cancelled subscriptions
+        tests:
+          - not_null
+      - name: trialing_subscriptions
+        description: Count of trialing subscriptions
+        tests:
+          - not_null
+      - name: total_mrr
+        description: Total monthly recurring revenue
+        tests:
+          - not_null
+      - name: total_arr
+        description: Total annual recurring revenue
+        tests:
+          - not_null
+      - name: first_subscription_at
+        description: Timestamp of first subscription
+      - name: latest_subscription_at
+        description: Timestamp of most recent subscription
+      - name: unique_plans_subscribed
+        description: Count of distinct plans subscribed
+        tests:
+          - not_null
+      - name: currencies_used
+        description: Count of distinct currencies used
+        tests:
+          - not_null
+      - name: account_health_segment
+        description: Account health classification for segmentation
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Inactive', 'Churned', 'No Subscription', 'Enterprise', 'Growth', 'Starter', 'Free']
+      - name: product_adoption
+        description: Product adoption classification
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Multi-Product', 'Dual-Product', 'Single-Product', 'No Active Products']
+      - name: account_age_days
+        description: Number of days since account creation
+        tests:
+          - not_null
+      - name: engagement_status
+        description: Account engagement classification
+        tests:
+          - accepted_values:
+              values: ['New', 'Active', 'Engaged', 'Dormant', null]

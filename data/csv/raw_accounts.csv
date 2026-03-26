@@ -1,0 +1,21 @@
+account_id,account_name,industry,company_size_band,region,account_tier,csm_user_id,is_active,created_at,updated_at
+acc_0001,Nexaflow Technologies,SaaS,SMB,Southeast Asia,Growth,csm_u001,true,2023-01-15 08:00:00,2024-09-01 10:00:00
+acc_0002,Brightpath Analytics,Analytics,Mid-Market,North America,Enterprise,csm_u002,true,2022-11-20 09:30:00,2024-10-15 14:20:00
+acc_0003,Vertex Operations,Logistics,SMB,Europe,Growth,csm_u001,true,2023-03-10 07:45:00,2024-08-22 11:30:00
+acc_0004,Clarion Health,Healthcare,Enterprise,North America,Enterprise,csm_u003,true,2022-06-05 10:00:00,2024-11-01 09:00:00
+acc_0005,Moonrise Digital,SaaS,SMB,Southeast Asia,Free,csm_u001,true,2024-08-01 13:00:00,2024-08-01 13:00:00
+acc_0006,Ironclad Finance,Fintech,Mid-Market,Europe,Growth,csm_u002,true,2023-05-18 08:30:00,2024-07-10 16:00:00
+acc_0007,Peakview Consulting,Consulting,SMB,Southeast Asia,Growth,csm_u001,true,2023-07-22 09:00:00,2024-09-30 10:45:00
+acc_0008,Luminary Education,EdTech,SMB,Asia Pacific,Free,csm_u003,false,2023-09-01 11:00:00,2024-04-15 08:00:00
+acc_0009,Skybridge Commerce,E-commerce,Mid-Market,North America,Growth,csm_u002,true,2023-02-14 10:15:00,2024-10-20 13:30:00
+acc_0010,Redline Engineering,Manufacturing,Enterprise,Europe,Enterprise,csm_u003,true,2022-03-30 07:00:00,2024-11-05 09:15:00
+acc_0011,Coastal Media,Media,SMB,Southeast Asia,Free,csm_u001,true,2024-01-10 14:00:00,2024-06-01 10:00:00
+acc_0012,Orion Cloud Services,SaaS,Enterprise,North America,Enterprise,csm_u002,true,2021-09-15 08:00:00,2024-11-10 11:00:00
+acc_0013,Pinepoint Research,Research,SMB,Europe,Growth,csm_u001,true,2023-11-05 09:30:00,2024-08-14 15:00:00
+acc_0014,Trident Systems,Defense,Enterprise,North America,Enterprise,csm_u003,true,2022-01-20 10:00:00,2024-09-25 12:00:00
+acc_0015,Ember Studios,Creative,SMB,Southeast Asia,Free,csm_u001,true,2024-05-20 11:30:00,2024-05-20 11:30:00
+acc_0016,Quicksilver Logistics,Logistics,Mid-Market,Asia Pacific,Growth,csm_u002,true,2023-04-08 08:45:00,2024-10-01 09:30:00
+acc_0017,Anchor Financial,Fintech,Enterprise,North America,Enterprise,csm_u003,true,2022-08-12 10:30:00,2024-11-02 14:00:00
+acc_0018,Bloom Wellness,Healthcare,SMB,Europe,Free,csm_u001,false,2023-10-25 09:00:00,2024-07-31 17:00:00
+acc_0019,Titan Data Corp,Data,Mid-Market,Southeast Asia,Growth,csm_u002,true,2023-06-15 10:00:00,2024-10-08 11:15:00
+acc_0020,Celeste Retail,E-commerce,SMB,Asia Pacific,Free,csm_u001,true,2024-02-28 13:30:00,2024-09-10 14:00:00

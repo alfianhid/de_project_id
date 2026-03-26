@@ -1,0 +1,3 @@
+# Placeholder file to ensure analysis directory is tracked by git
+# Add ad-hoc analytical SQL queries here
+# https://docs.getdbt.com/docs/build/analyses
