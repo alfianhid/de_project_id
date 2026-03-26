@@ -301,11 +301,8 @@ Go to **Settings > Secrets and Variables > Actions > New repository secret**
 
 ## Documentation
 
-- [Executive Summary](./executive_summary.md)
 - [Technical Implementation Guide](./technical_implementation_guide.md)
 - [Production Operations Guide](./production_ops_and_handover_guide.md)
-- [Source Database Setup](./source_database_setup.md)
-- [Dummy Data Guide](./dummy_data_guide.md)
 
 ## Contributing
 
